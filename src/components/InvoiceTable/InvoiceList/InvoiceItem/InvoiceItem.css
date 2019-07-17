@@ -1,0 +1,7 @@
+.delete {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: red;
+
+  cursor: pointer;
+}
