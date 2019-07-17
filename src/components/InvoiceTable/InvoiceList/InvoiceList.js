@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './InvoiceList.css';
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
 export default function InvoiceList() {
@@ -8,7 +9,12 @@ export default function InvoiceList() {
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
 
-  function addRow(e) {
+  function onDelete(e) {
+    e.target.parentNode.remove();
+    setIndex(prevIndex => prevIndex - 1);
+  }
+
+  function addRow() {
     if (name === "" || count === "" || price === "") {
       return;
     }
@@ -21,13 +27,14 @@ export default function InvoiceList() {
         name={name}
         count={count}
         price={price}
+        onDelete={onDelete}
       />
     ]);
 
-    setIndex(index + 1);
     setName("");
     setCount(1);
     setPrice("");
+    setIndex(prevIndex => prevIndex + 1);
   }
 
   function changeStateHandler(e, state) {
@@ -56,7 +63,7 @@ export default function InvoiceList() {
           />
           <input
             type="number"
-            style={{ width: "60px"}}
+            style={{ width: "60px" }}
             placeholder="₽"
             value={price}
             onChange={e => changeStateHandler(e, setPrice)}
