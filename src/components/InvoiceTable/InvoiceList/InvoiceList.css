@@ -1,0 +1,4 @@
+tr:nth-last-child(2) .delete {
+  visibility: visible;
+  border: 1px solid black;
+}
