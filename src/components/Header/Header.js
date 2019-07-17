@@ -46,7 +46,7 @@ export default function Header() {
                 </span>
                 от&nbsp;
                 <span onClick={() => setData(date)}>{date}</span>
-                {getInput(data)}
+                &nbsp;{getInput(data)}
                 {/* <button onClick={() => setInputView(false)}>&times;</button> */}
               </h1>
             </td>
