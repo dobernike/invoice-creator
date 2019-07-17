@@ -8,7 +8,11 @@ export default function InvoiceList() {
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
 
-  function addRow() {
+  function addRow(e) {
+    if (name === "" || count === "" || price === "") {
+      return;
+    }
+
     setRows([
       ...rows,
       <InvoiceItem
@@ -34,13 +38,14 @@ export default function InvoiceList() {
     <>
       {rows}
       <tr className="printHide">
-        <td colSpan="5" style={{ textAlign: "left" }}>
+        <td className="inputs-data" colSpan="5" style={{ textAlign: "left" }}>
           <input
             type="text"
             style={{ width: "300px", marginRight: "10px" }}
             placeholder="название"
             value={name}
             onChange={e => changeStateHandler(e, setName)}
+            autoFocus
           />
           <input
             type="number"
@@ -51,14 +56,14 @@ export default function InvoiceList() {
           />
           <input
             type="number"
-            style={{ width: "60px" }}
+            style={{ width: "60px"}}
             placeholder="₽"
             value={price}
             onChange={e => changeStateHandler(e, setPrice)}
           />
         </td>
         <td>
-          <button onClick={addRow}>add</button>
+          <button onClick={addRow}>Добавить</button>
         </td>
       </tr>
     </>
