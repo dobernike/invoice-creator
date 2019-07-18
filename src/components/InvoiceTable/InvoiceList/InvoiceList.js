@@ -15,10 +15,7 @@ export default function InvoiceList() {
   }
 
   function addRow() {
-    if (name === "" || count === "" || price === "") {
-      return;
-    }
-
+    if (name === "" || count === "" || price === "") { return; }
     setRows([
       ...rows,
       <InvoiceItem
@@ -30,16 +27,13 @@ export default function InvoiceList() {
         onDelete={onDelete}
       />
     ]);
-
     setName("");
     setCount(1);
     setPrice("");
     setIndex(prevIndex => prevIndex + 1);
   }
 
-  function changeStateHandler(e, state) {
-    state(e.target.value);
-  }
+  function changeStateHandler(e, state) { state(e.target.value); }
 
   return (
     <>
