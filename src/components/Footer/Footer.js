@@ -14,3 +14,7 @@ export default function Footer() {
     </table>
   );
 }
+
+// TODO: 
+// ADD button to print();
+// ADD new title of document
