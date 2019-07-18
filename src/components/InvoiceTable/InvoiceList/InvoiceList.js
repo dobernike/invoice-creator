@@ -80,7 +80,7 @@ export default function InvoiceList(props) {
           />
         </td>
         <td>
-          <button onClick={addRow}>Добавить</button>
+          <button className="addBtn" onClick={addRow}>Добавить</button>
         </td>
       </tr>
     </>
