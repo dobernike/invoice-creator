@@ -18,3 +18,5 @@ export default function Footer() {
 // TODO: 
 // ADD button to print();
 // ADD new title of document
+// ADD SW? 
+// CREATE PWA to desktop and mobile
