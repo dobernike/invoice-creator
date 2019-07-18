@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './InvoiceList.css';
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
-export default function InvoiceList() {
+export default function InvoiceList(props) {
   const [name, setName] = useState("");
   const [count, setCount] = useState(1);
   const [price, setPrice] = useState("");
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
+  const [total, setTotal] = useState([]);
+
+
+  useEffect(() => {
+    // props.updateTotal(total);
+    console.log(total);
+
+  }, [total]);
 
   function onDelete(e) {
     e.target.parentNode.remove();
     setIndex(prevIndex => prevIndex - 1);
+    setTotal(prevTotal => prevTotal.pop());
   }
 
   function addRow() {
@@ -27,6 +36,11 @@ export default function InvoiceList() {
         onDelete={onDelete}
       />
     ]);
+    setTotal(prevTotal => prevTotal.push(1));
+    console.log(total);
+
+    // console.log(price * count, total);
+
     setName("");
     setCount(1);
     setPrice("");
