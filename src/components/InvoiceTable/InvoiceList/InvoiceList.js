@@ -8,23 +8,28 @@ export default function InvoiceList(props) {
   const [price, setPrice] = useState("");
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
-  const [total, setTotal] = useState([]);
+  const [total, setTotal] = useState([0]);
 
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
   useEffect(() => {
-    // props.updateTotal(total);
-    console.log(total);
-
+    const totalPrice = total.reduce(reducer);
+    props.updateTotal(totalPrice);
+    props.updateIndex(index - 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
 
   function onDelete(e) {
     e.target.parentNode.remove();
     setIndex(prevIndex => prevIndex - 1);
-    setTotal(prevTotal => prevTotal.pop());
+
+    const newTotal = total.filter((_, idx) => idx !== index);
+    setTotal(newTotal);
   }
 
   function addRow() {
     if (name === "" || count === "" || price === "") { return; }
+
     setRows([
       ...rows,
       <InvoiceItem
@@ -36,11 +41,8 @@ export default function InvoiceList(props) {
         onDelete={onDelete}
       />
     ]);
-    setTotal(prevTotal => prevTotal.push(1));
-    console.log(total);
 
-    // console.log(price * count, total);
-
+    setTotal([...total, price * count]);
     setName("");
     setCount(1);
     setPrice("");

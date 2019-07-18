@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import InvoiceList from "./InvoiceList/InvoiceList";
 
-
 export default function InvoiceTable() {
   const [total, setTotal] = useState(0);
+  const [index, setIndex] = useState(0);
 
   function updateTotal(price) {
     setTotal(price);
+  }
+
+  function updateIndex(idx) {
+    setIndex(idx);
   }
 
   return (
@@ -29,10 +33,10 @@ export default function InvoiceTable() {
           </tr>
         </tfoot>
         <tbody>
-          <InvoiceList updateTotal={updateTotal} />
+          <InvoiceList updateTotal={updateTotal} updateIndex={updateIndex} />
         </tbody>
       </table>
-      <p>Всего наименований 1 на сумму {total} руб.</p>
+      <p>Всего наименований {index} на сумму {total} руб.</p>
       <p id="sum-names">Одна тысяча двести рублей ноль копеек</p>
     </>
   );
