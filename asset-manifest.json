@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/my-app/invoice/static/css/main.f0608e4a.chunk.css",
+    "main.js": "/my-app/invoice/static/js/main.838d1f90.chunk.js",
+    "main.js.map": "/my-app/invoice/static/js/main.838d1f90.chunk.js.map",
+    "runtime~main.js": "/my-app/invoice/static/js/runtime~main.ccf3b15d.js",
+    "runtime~main.js.map": "/my-app/invoice/static/js/runtime~main.ccf3b15d.js.map",
+    "static/js/2.244b2b74.chunk.js": "/my-app/invoice/static/js/2.244b2b74.chunk.js",
+    "static/js/2.244b2b74.chunk.js.map": "/my-app/invoice/static/js/2.244b2b74.chunk.js.map",
+    "index.html": "/my-app/invoice/index.html",
+    "precache-manifest.e429e789f36e92cf9815eedc40f38e02.js": "/my-app/invoice/precache-manifest.e429e789f36e92cf9815eedc40f38e02.js",
+    "service-worker.js": "/my-app/invoice/service-worker.js",
+    "static/css/main.f0608e4a.chunk.css.map": "/my-app/invoice/static/css/main.f0608e4a.chunk.css.map",
+    "static/media/barcode.svg": "/my-app/invoice/static/media/barcode.69c81bde.svg"
+  }
+}
