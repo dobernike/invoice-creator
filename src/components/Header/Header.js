@@ -13,7 +13,7 @@ export default function Header() {
   const [data, setData] = useState(date);
 
   useEffect(() => {
-    document.title = `${date} №${invoiceNumber}`
+    document.title = `${date} накладная № ${invoiceNumber}`;
   }, [date, invoiceNumber])
 
   function onChangeDate(e) {
