@@ -1,0 +1,15 @@
+.delete {
+  text-align: center !important;
+
+  visibility: hidden;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: brown;
+
+  cursor: pointer;
+}
+
+.delete:focus,
+.delete:hover {
+  background-color: aquamarine;
+}

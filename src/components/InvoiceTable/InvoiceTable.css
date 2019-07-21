@@ -1,0 +1,9 @@
+#sum-names::first-letter {
+  text-transform: capitalize;
+}
+
+.delete.delete--delivery:focus,
+.delete.delete--delivery:hover {
+  opacity: .8;
+  background-color: inherit;
+}
