@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import barcode from "../../barcode.svg";
 
 function getRandomInt(min, max) {
@@ -11,6 +11,10 @@ export default function Header() {
     getRandomInt(10000, 100000)
   );
   const [data, setData] = useState(date);
+
+  useEffect(() => {
+    document.title = `${date} №${invoiceNumber}`
+  }, [date, invoiceNumber])
 
   function onChangeDate(e) {
     setDate(e.target.value);
@@ -47,7 +51,6 @@ export default function Header() {
                 от&nbsp;
                 <span onClick={() => setData(date)}>{date}</span>
                 &nbsp;{getInput(data)}
-                {/* <button onClick={() => setInputView(false)}>&times;</button> */}
               </h1>
             </td>
             <td id="pay_till">
