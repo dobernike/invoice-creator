@@ -105,6 +105,6 @@ table#subscripts th {
 
 @media print {
   .printHide {
-    display: none;
+    display: none !important;
   }
 }
