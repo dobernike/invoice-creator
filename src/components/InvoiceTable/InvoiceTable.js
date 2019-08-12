@@ -54,14 +54,14 @@ export default function InvoiceTable() {
             : null}
           <tr className="total">
             <td colSpan="5">Итого:</td>
-            <td className='price'>{total}</td>
+            <td className='price'>{total.toLocaleString()}</td>
           </tr>
         </tfoot>
         <tbody>
           <InvoiceList updateTotal={updateTotal} updateIndex={updateIndex} />
         </tbody>
       </table>
-      <p>Всего наименований {index} на сумму <span className="price">{total}</span> руб.</p>
+      <p>Всего наименований {index} на сумму <span className="price">{total.toLocaleString()}</span> руб.</p>
       <p id="sum-names">{numberToString(total)}</p>
     </>
   );

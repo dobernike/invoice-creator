@@ -73,6 +73,7 @@ export default function InvoiceList(props) {
           />
           <input
             type="number"
+            min="0"
             style={{ width: "60px" }}
             placeholder="₽"
             value={price}
