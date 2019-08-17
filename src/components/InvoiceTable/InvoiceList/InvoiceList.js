@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import './InvoiceList.css';
+import React, { useState, useEffect, useRef } from "react";
+import "./InvoiceList.css";
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
 export default function InvoiceList(props) {
@@ -12,7 +12,11 @@ export default function InvoiceList(props) {
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
+  let textInput = useRef();
+
   useEffect(() => {
+    textInput.current.focus();
+
     const totalPrice = total.reduce(reducer);
     props.updateTotal(totalPrice);
     props.updateIndex(index - 1);
@@ -28,7 +32,9 @@ export default function InvoiceList(props) {
   }
 
   function addRow() {
-    if (name === "" || count === "" || price === "") { return; }
+    if (name === "" || count === "" || price === "") {
+      return;
+    }
 
     setRows([
       ...rows,
@@ -49,7 +55,10 @@ export default function InvoiceList(props) {
     setIndex(prevIndex => prevIndex + 1);
   }
 
-  function changeStateHandler(e, state) { state(e.target.value); }
+  function changeStateHandler(e, state) {
+    state(e.target.value);
+  }
+
 
   return (
     <>
@@ -62,7 +71,7 @@ export default function InvoiceList(props) {
             placeholder="название"
             value={name}
             onChange={e => changeStateHandler(e, setName)}
-            autoFocus
+            ref={textInput}
           />
           <input
             type="number"
@@ -81,7 +90,9 @@ export default function InvoiceList(props) {
           />
         </td>
         <td>
-          <button className="addBtn" onClick={addRow}>Добавить</button>
+          <button className="addBtn" onClick={addRow}>
+            Добавить
+          </button>
         </td>
       </tr>
     </>
