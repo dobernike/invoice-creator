@@ -71,6 +71,7 @@ export default function InvoiceList(props) {
             placeholder="название"
             value={name}
             onChange={e => changeStateHandler(e, setName)}
+            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
             ref={textInput}
           />
           <input
@@ -79,6 +80,7 @@ export default function InvoiceList(props) {
             placeholder="1"
             value={count}
             onChange={e => changeStateHandler(e, setCount)}
+            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
           />
           <input
             type="number"
@@ -87,6 +89,7 @@ export default function InvoiceList(props) {
             placeholder="₽"
             value={price}
             onChange={e => changeStateHandler(e, setPrice)}
+            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
           />
         </td>
         <td>
