@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
 }
 
 export default function Header() {
-  const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [date, setDate] = useState(new Date().toLocaleDateString("ru"));
   const [invoiceNumber, setInvoiceNumber] = useState(
     getRandomInt(10000, 100000)
   );
