@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './InvoiceTable.css'
+import "./InvoiceTable.css";
 import InvoiceList from "./InvoiceList/InvoiceList";
-import numberToString from './numberToString';
+import numberToString from "../../utils/numberToString";
 
 export default function InvoiceTable() {
   const [total, setTotal] = useState(0);
@@ -14,7 +14,7 @@ export default function InvoiceTable() {
   function updateTotal(price) {
     if (price < TO_DELIVERY_FREE) {
       setDelivery(true);
-      price += DELIVERY_PRICE
+      price += DELIVERY_PRICE;
     } else {
       setDelivery(false);
     }
@@ -45,23 +45,31 @@ export default function InvoiceTable() {
           </tr>
         </thead>
         <tfoot>
-          {delivery ?
+          {delivery ? (
             <tr className="total">
               <td colSpan="5">Доставка:</td>
               <td>{DELIVERY_PRICE}</td>
-              <td className="printHide delete delete--delivery" onClick={onDeleteDelivery}>x</td>
+              <td
+                className="printHide delete delete--delivery"
+                onClick={onDeleteDelivery}
+              >
+                x
+              </td>
             </tr>
-            : null}
+          ) : null}
           <tr className="total">
             <td colSpan="5">Итого:</td>
-            <td className='price'>{total.toLocaleString()}</td>
+            <td className="price">{total.toLocaleString()}</td>
           </tr>
         </tfoot>
         <tbody>
           <InvoiceList updateTotal={updateTotal} updateIndex={updateIndex} />
         </tbody>
       </table>
-      <p>Всего наименований {index} на сумму <span className="price">{total.toLocaleString()}</span> руб.</p>
+      <p>
+        Всего наименований {index} на сумму{" "}
+        <span className="price">{total.toLocaleString()}</span> руб.
+      </p>
       <p id="sum-names">{numberToString(total)}</p>
     </>
   );
