@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./InvoiceItem.css";
 
 const InvoiceItem = ({ index, name, count, price, onDelete }) => (

@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Footer.css";
 
 const Footer = () => (
@@ -22,7 +23,3 @@ const Footer = () => (
 Footer.whyDidYouRender = true;
 
 export default Footer;
-// TODO:
-// ADD SW?
-// CREATE PWA to desktop and mobile
-// Add to title price and first item name

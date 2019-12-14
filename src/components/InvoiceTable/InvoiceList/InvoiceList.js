@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useRef, memo } from "react";
-import "./InvoiceList.css";
+
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
+import "./InvoiceList.css";
+
 const InvoiceList = memo(props => {
-  const [name, setName] = useState("");
-  const [count, setCount] = useState(1);
-  const [price, setPrice] = useState("");
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
   const [total, setTotal] = useState([0]);
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  const ref = useRef();
+  const nameRef = useRef();
+  const countRef = useRef();
+  const priceRef = useRef();
 
   useEffect(() => {
-    ref.current.focus();
+    nameRef.current.focus();
 
     const totalPrice = total.reduce(reducer);
+
     props.onUpdateTotal(totalPrice);
     props.onUpdateIndex(index - 1);
   }, [index, props, total]);
@@ -31,6 +33,10 @@ const InvoiceList = memo(props => {
   };
 
   const addRow = () => {
+    const name = nameRef.current.value;
+    const count = countRef.current.value;
+    const price = priceRef.current.value;
+
     if (name === "" || count === "" || price === "") {
       return;
     }
@@ -48,13 +54,18 @@ const InvoiceList = memo(props => {
     ]);
 
     setTotal([...total, price * count]);
-    setName("");
-    setCount(1);
-    setPrice("");
     setIndex(prevIndex => prevIndex + 1);
+
+    nameRef.current.value = "";
+    countRef.current.value = 1;
+    priceRef.current.value = "";
   };
 
-  const changeStateHandler = (e, state) => state(e.target.value);
+  const onPressHandler = e => {
+    if (e.key === "Enter") {
+      addRow();
+    }
+  };
 
   return (
     <>
@@ -65,27 +76,24 @@ const InvoiceList = memo(props => {
             type="text"
             style={{ width: "300px", marginRight: "10px" }}
             placeholder="название"
-            value={name}
-            onChange={e => changeStateHandler(e, setName)}
-            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
-            ref={ref}
+            onKeyPress={onPressHandler}
+            ref={nameRef}
           />
           <input
             type="number"
             style={{ width: "30px", marginRight: "10px" }}
             placeholder="1"
-            value={count}
-            onChange={e => changeStateHandler(e, setCount)}
-            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
+            defaultValue="1"
+            onKeyPress={onPressHandler}
+            ref={countRef}
           />
           <input
             type="number"
             min="0"
             style={{ width: "60px" }}
             placeholder="₽"
-            value={price}
-            onChange={e => changeStateHandler(e, setPrice)}
-            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
+            onKeyPress={onPressHandler}
+            ref={priceRef}
           />
         </td>
         <td>

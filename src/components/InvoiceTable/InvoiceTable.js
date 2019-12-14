@@ -1,15 +1,17 @@
 import React, { useState, useCallback } from "react";
-import "./InvoiceTable.css";
+
 import InvoiceList from "./InvoiceList/InvoiceList";
 import numberToString from "../../utils/numberToString";
 
+import "./InvoiceTable.css";
+
+const TO_DELIVERY_FREE = 3000;
+const DELIVERY_PRICE = 300;
+
 const InvoiceTable = () => {
   const [total, setTotal] = useState(0);
-  const [index, setIndex] = useState(0);
+  const [numberOfGoods, setNumberOfGoods] = useState(0);
   const [delivery, setDelivery] = useState(true);
-
-  const TO_DELIVERY_FREE = 3000;
-  const DELIVERY_PRICE = 300;
 
   const updateTotalHandler = useCallback(price => {
     if (price < TO_DELIVERY_FREE && price !== 0) {
@@ -22,7 +24,7 @@ const InvoiceTable = () => {
     setTotal(price);
   }, []);
 
-  const updateIndexHandler = useCallback(idx => setIndex(idx), []);
+  const updateIndexHandler = useCallback(idx => setNumberOfGoods(idx), []);
 
   const deleteDeliveryHandler = () => {
     setDelivery(false);
@@ -43,7 +45,7 @@ const InvoiceTable = () => {
           </tr>
         </thead>
         <tfoot>
-          {delivery ? (
+          {delivery && (
             <tr className="total">
               <td colSpan="5">Доставка:</td>
               <td>{DELIVERY_PRICE}</td>
@@ -54,7 +56,7 @@ const InvoiceTable = () => {
                 x
               </td>
             </tr>
-          ) : null}
+          )}
           <tr className="total">
             <td colSpan="5">Итого:</td>
             <td className="price">{total.toLocaleString()}</td>
@@ -68,8 +70,8 @@ const InvoiceTable = () => {
         </tbody>
       </table>
       <p>
-        Всего наименований {index} на сумму{" "}
-        <span className="price">{total.toLocaleString()}</span> руб.
+        Всего наименований {numberOfGoods} на сумму
+        <span className="price">&nbsp;{total.toLocaleString()}</span> руб.
       </p>
       <p id="sum-names">{numberToString(total)}</p>
     </>
