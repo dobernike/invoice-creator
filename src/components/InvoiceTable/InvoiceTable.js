@@ -3,7 +3,7 @@ import "./InvoiceTable.css";
 import InvoiceList from "./InvoiceList/InvoiceList";
 import numberToString from "../../utils/numberToString";
 
-export default function InvoiceTable() {
+const InvoiceTable = () => {
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
   const [delivery, setDelivery] = useState(true);
@@ -11,7 +11,7 @@ export default function InvoiceTable() {
   const TO_DELIVERY_FREE = 3000;
   const DELIVERY_PRICE = 300;
 
-  function updateTotal(price) {
+  const updateTotal = price => {
     if (price < TO_DELIVERY_FREE) {
       setDelivery(true);
       price += DELIVERY_PRICE;
@@ -20,16 +20,14 @@ export default function InvoiceTable() {
     }
 
     setTotal(price);
-  }
+  };
 
-  function updateIndex(idx) {
-    setIndex(idx);
-  }
+  const updateIndex = idx => setIndex(idx);
 
-  function onDeleteDelivery() {
+  const onDeleteDelivery = () => {
     setDelivery(false);
     setTotal(prevTotal => prevTotal - DELIVERY_PRICE);
-  }
+  };
 
   return (
     <>
@@ -73,4 +71,8 @@ export default function InvoiceTable() {
       <p id="sum-names">{numberToString(total)}</p>
     </>
   );
-}
+};
+
+InvoiceTable.whyDidYouRender = true;
+
+export default InvoiceTable;

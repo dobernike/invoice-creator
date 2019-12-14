@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-function getRandomInt(min, max) {
+const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
-export default function Header() {
+const Header = () => {
   const [date, setDate] = useState(new Date().toLocaleDateString("ru"));
   const [invoiceNumber, setInvoiceNumber] = useState(
     getRandomInt(10000, 100000)
@@ -15,26 +15,24 @@ export default function Header() {
     document.title = `${date} накладная № ${invoiceNumber}`;
   }, [date, invoiceNumber]);
 
-  function onChangeDate(e) {
+  const onChangeDate = e => {
     setDate(e.target.value);
     setData(e.target.value);
-  }
+  };
 
-  function onChangeNumber(e) {
+  const onChangeNumber = e => {
     setInvoiceNumber(e.target.value);
     setData(e.target.value);
-  }
+  };
 
-  function getInput(state) {
-    return (
-      <input
-        className="printHide"
-        type="text"
-        value={state}
-        onChange={e => (state === date ? onChangeDate(e) : onChangeNumber(e))}
-      />
-    );
-  }
+  const getInput = state => (
+    <input
+      className="printHide"
+      type="text"
+      value={state}
+      onChange={e => (state === date ? onChangeDate(e) : onChangeNumber(e))}
+    />
+  );
 
   return (
     <>
@@ -109,4 +107,8 @@ export default function Header() {
       </table>
     </>
   );
-}
+};
+
+Header.whyDidYouRender = true;
+
+export default Header;

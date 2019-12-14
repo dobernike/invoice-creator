@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./InvoiceList.css";
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
-export default function InvoiceList(props) {
+const InvoiceList = props => {
   const [name, setName] = useState("");
   const [count, setCount] = useState(1);
   const [price, setPrice] = useState("");
@@ -20,18 +20,17 @@ export default function InvoiceList(props) {
     const totalPrice = total.reduce(reducer);
     props.updateTotal(totalPrice);
     props.updateIndex(index - 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
 
-  function onDelete(e) {
+  const onDelete = e => {
     e.target.parentNode.remove();
     setIndex(prevIndex => prevIndex - 1);
 
     const newTotal = total.filter((_, idx) => idx !== index);
     setTotal(newTotal);
-  }
+  };
 
-  function addRow() {
+  const addRow = () => {
     if (name === "" || count === "" || price === "") {
       return;
     }
@@ -53,12 +52,9 @@ export default function InvoiceList(props) {
     setCount(1);
     setPrice("");
     setIndex(prevIndex => prevIndex + 1);
-  }
+  };
 
-  function changeStateHandler(e, state) {
-    state(e.target.value);
-  }
-
+  const changeStateHandler = (e, state) => state(e.target.value);
 
   return (
     <>
@@ -71,7 +67,7 @@ export default function InvoiceList(props) {
             placeholder="название"
             value={name}
             onChange={e => changeStateHandler(e, setName)}
-            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
+            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
             ref={textInput}
           />
           <input
@@ -80,7 +76,7 @@ export default function InvoiceList(props) {
             placeholder="1"
             value={count}
             onChange={e => changeStateHandler(e, setCount)}
-            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
+            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
           />
           <input
             type="number"
@@ -89,7 +85,7 @@ export default function InvoiceList(props) {
             placeholder="₽"
             value={price}
             onChange={e => changeStateHandler(e, setPrice)}
-            onKeyDown={e => e.keyCode === 13 ? addRow() : null}
+            onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
           />
         </td>
         <td>
@@ -100,4 +96,8 @@ export default function InvoiceList(props) {
       </tr>
     </>
   );
-}
+};
+
+InvoiceList.whyDidYouRender = true;
+
+export default InvoiceList;
