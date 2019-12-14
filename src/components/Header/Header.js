@@ -42,11 +42,19 @@ const Header = () => {
             <td>
               <h1>
                 Расходная накладная №&nbsp;
-                <span onClick={() => setData(invoiceNumber)}>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setData(invoiceNumber)}
+                >
                   {invoiceNumber}&nbsp;
                 </span>
                 от&nbsp;
-                <span onClick={() => setData(date)}>{date}</span>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setData(date)}
+                >
+                  {date}
+                </span>
                 &nbsp;{getInput(data)}
               </h1>
             </td>
