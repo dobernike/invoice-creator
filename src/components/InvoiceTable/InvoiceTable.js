@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./InvoiceTable.css";
 import InvoiceList from "./InvoiceList/InvoiceList";
 import numberToString from "../../utils/numberToString";
@@ -11,8 +11,8 @@ const InvoiceTable = () => {
   const TO_DELIVERY_FREE = 3000;
   const DELIVERY_PRICE = 300;
 
-  const updateTotal = price => {
-    if (price < TO_DELIVERY_FREE) {
+  const updateTotalHandler = useCallback(price => {
+    if (price < TO_DELIVERY_FREE && price !== 0) {
       setDelivery(true);
       price += DELIVERY_PRICE;
     } else {
@@ -20,11 +20,11 @@ const InvoiceTable = () => {
     }
 
     setTotal(price);
-  };
+  }, []);
 
-  const updateIndex = idx => setIndex(idx);
+  const updateIndexHandler = useCallback(idx => setIndex(idx), []);
 
-  const onDeleteDelivery = () => {
+  const deleteDeliveryHandler = () => {
     setDelivery(false);
     setTotal(prevTotal => prevTotal - DELIVERY_PRICE);
   };
@@ -49,7 +49,7 @@ const InvoiceTable = () => {
               <td>{DELIVERY_PRICE}</td>
               <td
                 className="printHide delete delete--delivery"
-                onClick={onDeleteDelivery}
+                onClick={deleteDeliveryHandler}
               >
                 x
               </td>
@@ -61,7 +61,10 @@ const InvoiceTable = () => {
           </tr>
         </tfoot>
         <tbody>
-          <InvoiceList updateTotal={updateTotal} updateIndex={updateIndex} />
+          <InvoiceList
+            onUpdateTotal={updateTotalHandler}
+            onUpdateIndex={updateIndexHandler}
+          />
         </tbody>
       </table>
       <p>

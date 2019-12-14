@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import "./InvoiceList.css";
 import InvoiceItem from "./InvoiceItem/InvoiceItem";
 
-const InvoiceList = props => {
+const InvoiceList = memo(props => {
   const [name, setName] = useState("");
   const [count, setCount] = useState(1);
   const [price, setPrice] = useState("");
@@ -12,15 +12,15 @@ const InvoiceList = props => {
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  let textInput = useRef();
+  const ref = useRef();
 
   useEffect(() => {
-    textInput.current.focus();
+    ref.current.focus();
 
     const totalPrice = total.reduce(reducer);
-    props.updateTotal(totalPrice);
-    props.updateIndex(index - 1);
-  }, [total]);
+    props.onUpdateTotal(totalPrice);
+    props.onUpdateIndex(index - 1);
+  }, [index, props, total]);
 
   const onDelete = e => {
     e.target.parentNode.remove();
@@ -68,7 +68,7 @@ const InvoiceList = props => {
             value={name}
             onChange={e => changeStateHandler(e, setName)}
             onKeyDown={e => (e.keyCode === 13 ? addRow() : null)}
-            ref={textInput}
+            ref={ref}
           />
           <input
             type="number"
@@ -96,7 +96,7 @@ const InvoiceList = props => {
       </tr>
     </>
   );
-};
+});
 
 InvoiceList.whyDidYouRender = true;
 
