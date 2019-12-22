@@ -1,20 +1,36 @@
+<script>
+  import { goodsCount, total } from "../stores";
+  import numberToString from "../utils/numberToString";
+</script>
+
 <style>
-  .printBtn {
+  #sum-names::first-letter {
+    text-transform: capitalize;
+  }
+
+  .print-button {
     display: flex;
     margin: 2rem auto;
   }
 </style>
 
+<p>
+  Всего наименований {$goodsCount} на сумму
+  <span class="price">{$total.toLocaleString()}</span>
+  руб.
+</p>
+<p id="sum-names">{numberToString($total)}</p>
+
 <table id="subscripts">
   <tbody>
     <tr>
       <th>Отпустил</th>
-      <td>&nbsp;</td>
+      <td />
       <th>Получил</th>
-      <td>&nbsp;</td>
+      <td />
     </tr>
   </tbody>
 </table>
-<button class="printBtn printHide" on:click={() => window.print()}>
+<button class="print-button printHide" on:click={window.print.bind(null)}>
   Печать
 </button>

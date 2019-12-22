@@ -1,18 +1,18 @@
 <script>
   import { afterUpdate } from "svelte";
+  import { goodsCount } from "../../../stores";
   import InvoiceItem from "./InvoiceItem/InvoiceItem.svelte";
 
   export let onUpdateTotal;
-  export let onUpdateGoodsCount;
 
   let name = "";
   let count = 1;
   let price = "";
 
-  let index = 1;
-
   let total = [0];
   let rows = [];
+
+  let ref;
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -20,7 +20,7 @@
     const totalPrice = total.reduce(reducer);
 
     onUpdateTotal(totalPrice);
-    onUpdateGoodsCount(index - 1);
+    goodsCount.set(rows.length);
   });
 
   const handleKeyPress = e => {
@@ -37,24 +37,21 @@
     typeof price === "number";
 
   const handleDelete = e => {
-    e.target.parentNode.remove();
-    index = index - 1;
-
-    const newTotal = total.filter((_, idx) => idx !== index);
-    setTotal(newTotal);
+    rows = [...rows.slice(0, -1)];
+    total = [...total.slice(0, -1)];
   };
 
   const handleAddRow = () => {
     if (!isValid()) return;
 
-    rows = [...rows, { index, name, count, price, handleDelete }];
-
+    rows = [...rows, { name, count, price, handleDelete }];
     total = [...total, price * count];
-    index += 1;
 
     name = "";
     count = 1;
     price = "";
+
+    ref.focus();
   };
 </script>
 
@@ -91,8 +88,8 @@
   }
 </style>
 
-{#each rows as { name, index, name, count, price, onDelete }}
-  <InvoiceItem {index} {name} {count} {price} onDelete={handleDelete} />
+{#each rows as { name, name, count, price, onDelete }, idx}
+  <InvoiceItem index={idx + 1} {name} {count} {price} onDelete={handleDelete} />
 {/each}
 
 <tr class="printHide">
@@ -102,7 +99,8 @@
       class="name"
       placeholder="название"
       on:keypress={handleKeyPress}
-      bind:value={name} />
+      bind:value={name}
+      bind:this={ref} />
     <input
       type="number"
       class="count"
@@ -117,6 +115,7 @@
       on:keypress={handleKeyPress}
       bind:value={price} />
   </td>
+
   <td>
     <button class="addBtn" on:click={handleAddRow}>Добавить</button>
   </td>

@@ -1,5 +1,5 @@
 export default function numberToString(_number, toUpper) {
-  var toUpper = toUpper || false;
+  var toUpper = toUpper || "";
   var _arr_numbers = new Array();
   _arr_numbers[1] = new Array(
     "",
@@ -100,12 +100,12 @@ export default function numberToString(_number, toUpper) {
     else _string += " копеек";
     return _string;
   }
-  if (!_number || _number == 0) return false;
+  if (!_number || _number == 0) return "";
   if (typeof _number !== "number") {
     _number = _number + "";
     _number = _number.replace(",", ".");
     _number = parseFloat(_number);
-    if (isNaN(_number)) return false;
+    if (isNaN(_number)) return "";
   }
   _number = _number.toFixed(2);
   if (_number.indexOf(".") != -1) {
