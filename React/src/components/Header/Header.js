@@ -67,7 +67,6 @@ const Header = () => {
                 viewBox="0 0 178 70"
                 width="178px"
                 height="70px"
-                alt="штрихкод накладной"
               >
                 <path fill="#fff" d="M0 0H178V70H0z" />
                 <g transform="translate(10 10)">
@@ -116,7 +115,5 @@ const Header = () => {
     </>
   );
 };
-
-Header.whyDidYouRender = true;
 
 export default Header;

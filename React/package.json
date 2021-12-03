@@ -31,8 +31,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@welldone-software/why-did-you-render": "^3.3.9"
   }
 }

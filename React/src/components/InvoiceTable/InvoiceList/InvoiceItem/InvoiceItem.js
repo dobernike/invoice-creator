@@ -16,6 +16,4 @@ const InvoiceItem = ({ index, name, count, price, onDelete }) => (
   </tr>
 );
 
-InvoiceItem.whyDidYouRender = true;
-
 export default InvoiceItem;

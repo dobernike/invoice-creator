@@ -20,6 +20,4 @@ const Footer = () => (
   </>
 );
 
-Footer.whyDidYouRender = true;
-
 export default Footer;

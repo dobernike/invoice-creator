@@ -78,6 +78,4 @@ const InvoiceTable = () => {
   );
 };
 
-InvoiceTable.whyDidYouRender = true;
-
 export default InvoiceTable;

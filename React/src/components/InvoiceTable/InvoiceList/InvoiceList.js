@@ -106,6 +106,4 @@ const InvoiceList = memo(props => {
   );
 });
 
-InvoiceList.whyDidYouRender = true;
-
 export default InvoiceList;
