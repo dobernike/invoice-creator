@@ -7,9 +7,9 @@ import "./InvoiceList.css";
 const InvoiceList = memo(props => {
   const [rows, setRows] = useState([]);
   const [index, setIndex] = useState(1);
-  const [total, setTotal] = useState([0]);
+  const [total, setTotal] = useState([]); // [{ id: number, price: number }, ...]
 
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const reducer = (accumulator, {price}) => accumulator + price;
 
   const nameRef = useRef();
   const countRef = useRef();
@@ -18,17 +18,17 @@ const InvoiceList = memo(props => {
   useEffect(() => {
     nameRef.current.focus();
 
-    const totalPrice = total.reduce(reducer);
+    const totalPrice = total.reduce(reducer, 0);
 
     props.onUpdateTotal(totalPrice);
-    props.onUpdateIndex(index - 1);
-  }, [index, props, total]);
+    props.onUpdateIndex(rows.length);
+  }, [rows, props, total]);
 
-  const onDelete = e => {
-    e.target.parentNode.remove();
-    setIndex(prevIndex => prevIndex - 1);
+  const onDelete = (rowId) => {
+    const filtredRows = rows.filter(({id}) => id !== rowId);
+    setRows(filtredRows);
 
-    const newTotal = total.filter((_, idx) => idx !== index);
+    const newTotal = total.filter(({ id }) => id !== rowId);
     setTotal(newTotal);
   };
 
@@ -43,17 +43,15 @@ const InvoiceList = memo(props => {
 
     setRows([
       ...rows,
-      <InvoiceItem
-        key={Math.random() + name}
-        index={index}
-        name={name}
-        count={count}
-        price={price}
-        onDelete={onDelete}
-      />
+      {
+        id: index,
+        name: name,
+        count: count,
+        price: price,
+      }
     ]);
 
-    setTotal([...total, price * count]);
+    setTotal([...total, {id: index, price: price * count}]);
     setIndex(prevIndex => prevIndex + 1);
 
     nameRef.current.value = "";
@@ -69,7 +67,17 @@ const InvoiceList = memo(props => {
 
   return (
     <>
-      {rows}
+      {rows.map((row, idx) => 
+        <InvoiceItem 
+          key={Math.random() + row.name} 
+          id={row.id}
+          index={idx + 1}
+          name={row.name}
+          count={row.count}
+          price={row.price}
+          onDelete={onDelete}
+        />
+      )}
       <tr className="printHide">
         <td className="inputs-data" colSpan="5" style={{ textAlign: "left" }}>
           <input

@@ -2,7 +2,7 @@ import React from "react";
 
 import "./InvoiceItem.css";
 
-const InvoiceItem = ({ index, name, count, price, onDelete }) => (
+const InvoiceItem = ({ id, index, name, count, price, onDelete }) => (
   <tr>
     <td>{index}.</td>
     <td className="item-name">{name}</td>
@@ -10,7 +10,7 @@ const InvoiceItem = ({ index, name, count, price, onDelete }) => (
     <td className="units">шт.</td>
     <td className="price">{(+price).toLocaleString()}</td>
     <td className="price">{(price * count).toLocaleString()}</td>
-    <td className="printHide delete" onClick={onDelete}>
+    <td className="printHide delete" onClick={() => onDelete(id)}>
       x
     </td>
   </tr>

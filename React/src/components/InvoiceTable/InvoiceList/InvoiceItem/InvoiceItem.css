@@ -1,7 +1,6 @@
 .delete {
   text-align: center !important;
-
-  visibility: hidden;
+  border: 1px solid black;
   text-transform: uppercase;
   font-weight: bold;
   color: brown;
